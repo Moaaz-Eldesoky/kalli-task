@@ -1,0 +1,6 @@
+<div *ngIf="products.length > 0">
+  <app-product-details [products]="products"></app-product-details>
+
+  <div *ngIf="products.length === 0">
+    <p>Loading products...</p>
+  </div>

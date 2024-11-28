@@ -1,0 +1,44 @@
+<div *ngIf="currentProduct">
+  <!-- Product Slider (Carousel) -->
+  <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div *ngFor="let product of products; let i = index" class="carousel-item"
+        [class.active]="i === currentProductIndex">
+
+        <!-- Product details -->
+        <div class="d-flex justify-content-center align-items-center flex-column">
+          <h2>{{ product.title }}</h2>
+          <p>{{ product.description }}</p>
+          <!-- Add more product details here -->
+
+          <!-- Example product image (use a proper field for image) -->
+          <img [src]="'assets/' + product.colors[0].images[0] || 'assets/default-image.jpg'" alt="{{ product.title }}"
+            class="img-fluid" style="max-height: 300px; margin-bottom: 20px;">
+
+          <!-- Additional product details -->
+          <div class="product-info">
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            <!-- Add more details as needed -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev"
+      (click)="previousProduct()">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next"
+      (click)="nextProduct()">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!currentProduct">
+  <p>Loading product details...</p>
+</div>
