@@ -1,24 +1,64 @@
-button {
-  display: inline-block;
-  margin: 10px;
-  padding: 10px 20px;
-  /* Ensure the buttons are big enough to click */
-  background-color: #007bff;
-  /* Bootstrap primary color */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
+.main {
+  background-color: #f5f5f5;
+  position: relative;
+}
+
+
+
+.carousel-controls button {
+  /* display: inline-block; */
+  position: absolute;
+  top: 90%;
+  padding: 10px 10px;
   cursor: pointer;
+  height: 50px;
+  /* display: flex;
+  justify-content: space-between; */
 }
 
-button:disabled {
-  background-color: #ccc;
-  /* Disabled button color */
-  cursor: not-allowed;
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) brightness(0) saturate(100%) !important;
 }
 
-button:hover:not(:disabled) {
-  background-color: #0056b3;
-  /* Darker blue on hover */
+.carousel-indicators [data-bs-target] {
+  background-color: black;
+
+}
+
+.carousel-indicators {
+  bottom: 25px;
+  margin-left: 45%;
+  /* border: 1px solid; */
+  width: 100px;
+  bottom: 25px;
+}
+
+.carousel-item {
+  transition: none !important;
+}
+
+/* new changes */
+
+.carousel-controls {
+  bottom: 70px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+
+.carousel-control-prev,
+.carousel-control-next {
+  cursor: pointer;
+  width: 40px;
+}
+
+.carousel-control-prev {
+  margin-left: 41%;
+}
+
+.carousel-control-next {
+  margin-right: 43%;
 }

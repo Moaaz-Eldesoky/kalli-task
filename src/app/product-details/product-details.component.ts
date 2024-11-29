@@ -6,35 +6,48 @@ import { CommonModule } from '@angular/common';
   selector: 'app-product-details',
   imports: [CommonModule],
   templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.css',
+  styleUrls: ['./product-details.component.css'], // Fixed `styleUrl` to `styleUrls`
 })
 export class ProductDetailsComponent {
-  @Input() products: any[] = [];
+  @Input() products: Product[] = [];
   currentProductIndex: number = 0;
-  currentProduct: any;
+  currentProduct!: Product;
 
   ngOnInit(): void {
-    this.updateProduct(); // Initialize with the first product
+    this.updateProduct();
   }
 
+  // Updates the current product details based on the current index
   updateProduct(): void {
-    // Set the current product based on the current index
     this.currentProduct = this.products[this.currentProductIndex];
   }
 
-  // Move to the next product
+  // Navigates to the next product
   nextProduct(): void {
     if (this.currentProductIndex < this.products.length - 1) {
       this.currentProductIndex++;
-      this.updateProduct();
+    } else {
+      this.currentProductIndex = 0; // Loop back to the first product
     }
+    this.updateProduct();
   }
 
-  // Move to the previous product
+  // Navigates to the previous product
   previousProduct(): void {
     if (this.currentProductIndex > 0) {
       this.currentProductIndex--;
-      this.updateProduct();
+    } else {
+      this.currentProductIndex = this.products.length - 1; // Loop back to the last product
     }
+    this.updateProduct();
+  }
+
+  // Navigates to a specific product when a dot is clicked
+  goToProduct(index: number, event?: Event): void {
+    if (event) {
+      event.preventDefault(); // Prevent Bootstrap default behavior
+    }
+    this.currentProductIndex = index;
+    this.updateProduct();
   }
 }
