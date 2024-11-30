@@ -12,42 +12,69 @@ export class ProductDetailsComponent {
   @Input() products: Product[] = [];
   currentProductIndex: number = 0;
   currentProduct!: Product;
+  selectedSize!: number; // Track the selected size
+  selectedColor!: string; // Track the selected color
+  selectedImages: string[] = []; // Images of the selected color
 
   ngOnInit(): void {
     this.updateProduct();
   }
 
-  // Updates the current product details based on the current index
+  // Updates the current product and selected color
   updateProduct(): void {
     this.currentProduct = this.products[this.currentProductIndex];
+    this.selectedSize = this.currentProduct.size[0]; // Default size
+    this.selectColor(this.currentProduct.colors[0].hex); // Default color
   }
 
-  // Navigates to the next product
+  // Navigate to the next product
   nextProduct(): void {
-    if (this.currentProductIndex < this.products.length - 1) {
-      this.currentProductIndex++;
-    } else {
-      this.currentProductIndex = 0; // Loop back to the first product
-    }
+    this.currentProductIndex =
+      (this.currentProductIndex + 1) % this.products.length;
     this.updateProduct();
   }
 
-  // Navigates to the previous product
+  // Navigate to the previous product
   previousProduct(): void {
-    if (this.currentProductIndex > 0) {
-      this.currentProductIndex--;
-    } else {
-      this.currentProductIndex = this.products.length - 1; // Loop back to the last product
-    }
+    this.currentProductIndex =
+      (this.currentProductIndex - 1 + this.products.length) %
+      this.products.length;
     this.updateProduct();
   }
 
-  // Navigates to a specific product when a dot is clicked
+  // Navigate to a specific product
   goToProduct(index: number, event?: Event): void {
-    if (event) {
-      event.preventDefault(); // Prevent Bootstrap default behavior
-    }
+    event?.preventDefault(); // Prevent default behavior
     this.currentProductIndex = index;
     this.updateProduct();
+  }
+
+  // Select a size
+  selectSize(size: number): void {
+    this.selectedSize = size;
+  }
+
+  // Select a color and update images
+  selectColor(colorHex: string): void {
+    this.selectedColor = colorHex;
+    const colorObject = this.currentProduct.colors.find(
+      (color) => color.hex === colorHex
+    );
+    this.selectedImages = colorObject?.images || [];
+  }
+
+  // Calculate filled stars
+  get filledStars(): number {
+    return Math.floor(this.currentProduct.rate);
+  }
+
+  // Check for half star
+  get hasHalfStar(): boolean {
+    return this.currentProduct.rate % 1 !== 0;
+  }
+
+  // Get an array for stars
+  getStarsArray(): number[] {
+    return Array(5).fill(0);
   }
 }

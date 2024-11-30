@@ -1,9 +1,24 @@
 .main {
   background-color: #f5f5f5;
   position: relative;
+  padding: 20px;
 }
 
+.carousel-item h4 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
+.carousel-item h6 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.carousel-item p {
+  font-size: 1.25rem;
+  color: #a9a9a9;
+
+}
 
 .carousel-controls button {
   /* display: inline-block; */
@@ -61,4 +76,41 @@
 
 .carousel-control-next {
   margin-right: 43%;
+}
+
+/* rateing */
+.rating {
+  display: flex;
+  font-size: 1.5rem;
+  color: #ffd700;
+}
+
+.star {
+  color: #a9a9a9;
+}
+
+.star.filled {
+  color: #ffd700;
+}
+
+.star.half-filled:before {
+  content: '★';
+  color: #ffd700;
+  position: absolute;
+  width: 50%;
+  overflow: hidden;
+}
+
+.size p,
+.color p {
+  font-size: 1rem;
+  color: #000;
+  font-weight: bold;
+}
+
+.reviews p,
+.price p {
+  font-size: 1rem;
+
+  font-weight: bold;
 }

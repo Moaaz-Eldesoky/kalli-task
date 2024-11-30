@@ -17,54 +17,92 @@
           <div *ngFor="let product of products; let i = index" class="carousel-item"
             [class.active]="i === currentProductIndex">
             <div class="row my-3 m-md-0">
+              <!-- Product Details -->
               <div class="col-lg-3 align-self-center">
                 <h6>{{product.category}} <i class="fa-solid fa-minus"></i> </h6>
                 <h4>{{product.title}}</h4>
                 <p class="py-4">{{product.description}}</p>
                 <div class="d-flex">
-                  <div *ngFor="let image of product.colors[0].images;let indexOfelement=index;"
-                    class="position-relative animate__animated animate__flipInX z-3">
+                  <div *ngFor="let image of selectedImages; let imgIndex = index" class="position-relative">
                     <div class="position-absolute overlay bg-dark opacity-25 top-0 start-0 bottom-0 end-0 mt-1"></div>
-                    <img class="w-100 " src='{{"../../assets/"+ image}}' alt="images">
+                    <img class="w-100" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}">
                   </div>
                 </div>
               </div>
+
+              <!-- Selected Color's First Image -->
               <div class="col-lg-6" id="Touch">
-                <img class="w-100" src='{{"../../assets/"+ product.colors[0].images[0]}}' alt="">
+                <img class="w-100" [src]="'../../assets/' + selectedImages[0]" alt="Selected Color">
               </div>
+
+              <!-- Size, Reviews, Price, and Color Selection -->
               <div class="col-lg-3 align-self-center z-3">
-                <div>
-                  <p>Size</p>
+                <!-- Size -->
+                <div class="size">
+                  <p>SIZE</p>
                   <div class="d-flex">
-                    <div *ngFor="let size of product.size;let indexOfelement=index">
-                      <button [disabled]="!product.size.includes(size)" type=" button"
-                        style="width: 50px; height: 50px;"
-                        class="border border-2 btn text-center rounded-circle m-2">{{size}}</button>
+                    <div *ngFor="let size of product.size">
+                      <button type="button" style="width: 50px; height: 50px;"
+                        class="border border-2 btn text-center rounded-circle m-1"
+                        [ngClass]="{'bg-dark text-white': selectedSize === size}" (click)="selectSize(size)">
+                        {{size}}
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between align-items-center py-3">
+
+                <!-- Reviews -->
+                <div class="reviews d-flex justify-content-between py-3">
+                  <p class="m-0">REVIEWS</p>
+                  <div class="rating">
+                    <span class="star" *ngFor="let star of getStarsArray(); let i = index">
+                      <ng-container *ngIf="i < filledStars">★</ng-container>
+                      <ng-container *ngIf="i >= filledStars && i < filledStars + 1 && hasHalfStar">☆</ng-container>
+                      <ng-container *ngIf="i >= filledStars + 1">☆</ng-container>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Price -->
+                <div class="price d-flex justify-content-between py-3">
+                  <p>PRICE</p>
+                  <p>{{product.price | currency}}</p>
+                </div>
+
+                <!-- Color -->
+                <div class="color py-3">
+                  <p>COLOR</p>
+                  <div class="d-flex justify-content-center">
+                    <div *ngFor="let color of product.colors">
+                      <button [ngStyle]="{'background-color': color.hex}" type="button"
+                        class="btn rounded-circle m-2 p-3"
+                        [ngClass]="{'border-2 border-dark': selectedColor === color.hex, 'border-4': selectedColor === color.hex}"
+                        (click)="selectColor(color.hex)">
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Carousel controls moved to the bottom -->
-          <div class="carousel-controls">
-            <button class="carousel-control-prev" type="button" (click)="previousProduct()">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" (click)="nextProduct()">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
         </div>
 
-        <div *ngIf="!currentProduct">
-          <p>Loading product details...</p>
+        <!-- Carousel controls -->
+        <div class="carousel-controls">
+          <button class="carousel-control-prev" type="button" (click)="previousProduct()">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" (click)="nextProduct()">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
     </div>
+
+    <div *ngIf="!currentProduct">
+      <p>Loading product details...</p>
+    </div>
   </div>
+</div>
