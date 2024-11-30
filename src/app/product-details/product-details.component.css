@@ -23,7 +23,7 @@
 .carousel-controls button {
   /* display: inline-block; */
   position: absolute;
-  top: 90%;
+  top: 94%;
   padding: 10px 10px;
   cursor: pointer;
   height: 50px;
@@ -44,6 +44,7 @@
 .carousel-indicators {
   bottom: 25px;
   margin-left: 45%;
+  margin-bottom: -2%;
   /* border: 1px solid; */
   width: 100px;
   bottom: 25px;
@@ -113,4 +114,71 @@
   font-size: 1rem;
 
   font-weight: bold;
+}
+
+.right-side i {
+  margin-left: 30px;
+  font-size: 20px;
+}
+
+/* animation */
+/* Add this to your existing CSS file */
+
+@keyframes jumpAnimation {
+  0% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-10px);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+
+  70% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.carousel-item {
+  animation: none;
+  /* Default no animation */
+}
+
+.carousel-item.animate {
+  animation: jumpAnimation 0.5s ease-out;
+}
+
+.carousel-controls {
+  bottom: 70px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  cursor: pointer;
+  width: 40px;
+}
+
+.carousel-control-prev {
+  margin-left: 41%;
+}
+
+.carousel-control-next {
+  margin-right: 43%;
+}
+
+.main-image {
+  width: 75%;
+  margin-left: 13%;
+  /* height: 80%; */
 }

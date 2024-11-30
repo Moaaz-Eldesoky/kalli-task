@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  Count: number = 2;
+
+  RemoveData(text: string) {}
+}

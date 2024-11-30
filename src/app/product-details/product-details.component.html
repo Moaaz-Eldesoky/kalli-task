@@ -1,4 +1,7 @@
 <div class="container">
+
+  <app-navbar></app-navbar>
+
   <div class="main">
     <div *ngIf="currentProduct">
       <!-- Product Slider (Carousel) -->
@@ -32,7 +35,9 @@
 
               <!-- Selected Color's First Image -->
               <div class="col-lg-6" id="Touch">
-                <img class="w-100" [src]="'../../assets/' + selectedImages[0]" alt="Selected Color">
+                <div class="main-image">
+                  <img class="w-100" [src]="'../../assets/' + selectedImages[0]" alt="Selected Color">
+                </div>
               </div>
 
               <!-- Size, Reviews, Price, and Color Selection -->
@@ -97,6 +102,37 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
+        </div>
+        <!-- play video -->
+        <div class="row">
+          <div class="col-lg-8 justify-content-center">
+            <button type="button" class="btn d-flex align-items-center" data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">
+              <i class="fa-solid fa-circle-play mx-2"></i>
+              <p class="m-0">Play Video</p>
+            </button>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <iframe height="315" class="w-100" src="https://www.youtube.com/watch?v=oSLeuvYxK_Y"
+                      title="YouTube video player" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 right-side">
+            <button (click)="AddToCart()" type="button" class="btn text-white bg-black btn-lg fs-6 py-2 px-4 mx-2">ADD
+              TO
+              CART</button>
+            <i [ngClass]="CheckIsfav()?'fa-solid':'fa-regular'" (click)="addToFav()" class="fa-heart"></i>
+          </div>
         </div>
       </div>
     </div>

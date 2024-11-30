@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../interfaces/product.interface';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'], // Fixed `styleUrl` to `styleUrls`
 })
@@ -15,6 +16,8 @@ export class ProductDetailsComponent {
   selectedSize!: number; // Track the selected size
   selectedColor!: string; // Track the selected color
   selectedImages: string[] = []; // Images of the selected color
+  FavList: any = [];
+  count: any;
 
   ngOnInit(): void {
     this.updateProduct();
@@ -77,4 +80,21 @@ export class ProductDetailsComponent {
   getStarsArray(): number[] {
     return Array(5).fill(0);
   }
+  CheckIsfav(): boolean {
+    if (this.count in this.FavList) {
+      return true;
+    }
+    return false;
+  }
+
+  addToFav() {
+    console.log(this.FavList);
+    if (this.CheckIsfav()) {
+      const index = this.FavList.indexOf(this.count);
+      this.FavList.splice(index);
+    } else {
+      this.FavList.push(this.count);
+    }
+  }
+  AddToCart() {}
 }
