@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { Product } from '../interfaces/product.interface';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule],
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'], // Fixed `styleUrl` to `styleUrls`
 })
@@ -18,6 +19,8 @@ export class ProductDetailsComponent {
   selectedImages: string[] = []; // Images of the selected color
   FavList: any = [];
   count: any;
+
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     this.updateProduct();
@@ -96,5 +99,9 @@ export class ProductDetailsComponent {
       this.FavList.push(this.count);
     }
   }
-  AddToCart() {}
+  addToCart() {
+    console.log(this.currentProduct);
+    this.cartService.addToCart(this.currentProduct);
+    alert(`${this.currentProduct.title} has been added to your cart!`);
+  }
 }

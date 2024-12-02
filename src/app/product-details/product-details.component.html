@@ -1,6 +1,6 @@
 <div class="container">
 
-  <app-navbar></app-navbar>
+
 
   <div class="main">
     <div *ngIf="currentProduct">
@@ -128,7 +128,7 @@
             </div>
           </div>
           <div class="col-lg-4 right-side">
-            <button (click)="AddToCart()" type="button" class="btn text-white bg-black btn-lg fs-6 py-2 px-4 mx-2">ADD
+            <button (click)="addToCart()" type="button" class="btn text-white bg-black btn-lg fs-6 py-2 px-4 mx-2">ADD
               TO
               CART</button>
             <i [ngClass]="CheckIsfav()?'fa-solid':'fa-regular'" (click)="addToFav()" class="fa-heart"></i>

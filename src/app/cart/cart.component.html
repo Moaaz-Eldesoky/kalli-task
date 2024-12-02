@@ -1,1 +1,47 @@
-<p>cart works!</p>
+<div class="container py-5">
+  <h2 class="text-center mb-4">Your Cart</h2>
+
+  <!-- If cart has items -->
+  <div *ngIf="items.length; else emptyCart">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price * item.quantity | currency }}</td>
+            <td>
+              <button class="btn btn-sm btn-danger" (click)="removeItem(item)">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <h4>Total: {{ getTotalPrice() | currency }}</h4>
+      <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
+      <button class="btn btn-success">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- Empty Cart Template -->
+  <ng-template #emptyCart>
+    <div class="alert alert-warning text-center">
+      Your cart is empty. Start shopping now!
+    </div>
+  </ng-template>
+</div>

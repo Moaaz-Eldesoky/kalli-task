@@ -1,21 +1,23 @@
-<nav class="navbar navbar-expand-lg z-3">
-  <div class="container d-flex flex-nowrap">
-    <a class="navbar-brand " href="">Kalli</a>
-    <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">
-            <i class="fa-solid fa-arrow-left"></i>
-            Back
-          </a>
-        </li>
-      </ul>
+<div class="container">
+  <nav class="navbar navbar-expand-lg z-3">
+    <div class="container d-flex flex-nowrap">
+      <a class="navbar-brand " href="">Kalli</a>
+      <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/products">
+              <i class="fa-solid fa-arrow-left"></i>
+              Back
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-item d-flex align-items-center position-relative pe-5">
+        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
+          {{ cartItemCount }}
+        </span>
+        <a class="cart-icon" routerLink="/cart"><i class="fa-solid fa-bag-shopping"></i></a>
+      </div>
     </div>
-    <div class="nav-item d-flex align-items-center position-relative pe-5">
-      <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
-        {{Count}}
-      </span>
-      <i (click)="RemoveData('Count')" class="fa-solid fa-bag-shopping"></i>
-    </div>
-  </div>
-</nav>
+  </nav>
+</div>
