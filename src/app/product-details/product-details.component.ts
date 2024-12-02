@@ -7,14 +7,14 @@ import { CartService } from '../services/cart.service';
   selector: 'app-product-details',
   imports: [CommonModule],
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css'], // Fixed `styleUrl` to `styleUrls`
+  styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent {
   @Input() products: Product[] = [];
   currentProductIndex: number = 0;
   currentProduct!: Product;
-  selectedSize!: number; // Track the selected size
-  selectedColor!: string; // Track the selected color
+  selectedSize!: number;
+  selectedColor!: string;
   selectedImages: string[] = []; // Images of the selected color
   FavList: any = [];
   count: any;

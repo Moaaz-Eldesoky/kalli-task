@@ -3,15 +3,6 @@
     <div *ngIf="currentProduct">
       <!-- Product Slider (Carousel) -->
       <div id="productCarousel" class="carousel slide" data-bs-ride="false" [attr.data-bs-interval]="false">
-        <!-- Carousel indicators -->
-        <div class="carousel-indicators">
-          <button *ngFor="let product of products; let i = index" type="button"
-            [attr.data-bs-target]="'#productCarousel'" [attr.data-bs-slide-to]="i"
-            [class.active]="i === currentProductIndex" [attr.aria-current]="i === currentProductIndex ? 'true' : null"
-            [attr.aria-label]="'Slide ' + (i + 1)" (click)="goToProduct(i, $event)">
-          </button>
-        </div>
-
         <!-- Carousel inner -->
         <div class="carousel-inner">
           <div *ngFor="let product of products; let i = index" class="carousel-item"
@@ -22,9 +13,9 @@
                 <h6>{{product.category}} <i class="fa-solid fa-minus"></i> </h6>
                 <h4>{{product.title}}</h4>
                 <p class="py-4">{{product.description}}</p>
+                <!-- thumbnails -->
                 <div class="d-flex">
                   <div *ngFor="let image of selectedImages; let imgIndex = index" class="position-relative">
-                    <!-- <div class="position-absolute overlay bg-dark opacity-25 top-0 start-0 bottom-0 end-0 mt-1"></div> -->
                     <img class="w-100" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}"
                       (click)="changeMainImage(image)">
                   </div>
@@ -89,7 +80,6 @@
             </div>
           </div>
         </div>
-
         <!-- Carousel controls -->
         <div class="carousel-controls">
           <button class="carousel-control-prev" type="button" (click)="previousProduct()">
@@ -99,6 +89,14 @@
           <button class="carousel-control-next" type="button" (click)="nextProduct()">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <!-- Carousel indicators -->
+        <div class="carousel-indicators">
+          <button *ngFor="let product of products; let i = index" type="button"
+            [attr.data-bs-target]="'#productCarousel'" [attr.data-bs-slide-to]="i"
+            [class.active]="i === currentProductIndex" [attr.aria-current]="i === currentProductIndex ? 'true' : null"
+            [attr.aria-label]="'Slide ' + (i + 1)" (click)="goToProduct(i, $event)">
           </button>
         </div>
         <!-- play video -->
