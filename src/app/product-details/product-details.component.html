@@ -1,7 +1,4 @@
 <div class="container">
-
-
-
   <div class="main">
     <div *ngIf="currentProduct">
       <!-- Product Slider (Carousel) -->
@@ -27,8 +24,9 @@
                 <p class="py-4">{{product.description}}</p>
                 <div class="d-flex">
                   <div *ngFor="let image of selectedImages; let imgIndex = index" class="position-relative">
-                    <div class="position-absolute overlay bg-dark opacity-25 top-0 start-0 bottom-0 end-0 mt-1"></div>
-                    <img class="w-100" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}">
+                    <!-- <div class="position-absolute overlay bg-dark opacity-25 top-0 start-0 bottom-0 end-0 mt-1"></div> -->
+                    <img class="w-100" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}"
+                      (click)="changeMainImage(image)">
                   </div>
                 </div>
               </div>
@@ -36,7 +34,7 @@
               <!-- Selected Color's First Image -->
               <div class="col-lg-6" id="Touch">
                 <div class="main-image">
-                  <img class="w-100" [src]="'../../assets/' + selectedImages[0]" alt="Selected Color">
+                  <img class="w-100" [src]="'../../assets/' + mainImage" alt="Selected Color">
                 </div>
               </div>
 

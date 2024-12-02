@@ -19,6 +19,7 @@ export class ProductDetailsComponent {
   FavList: any = [];
   count: any;
   isFav: boolean = false; // Track if the product is in favorites
+  mainImage!: string; // Track the selected main image
 
   constructor(private cartService: CartService) {}
 
@@ -67,6 +68,12 @@ export class ProductDetailsComponent {
       (color) => color.hex === colorHex
     );
     this.selectedImages = colorObject?.images || [];
+    this.mainImage = this.selectedImages[0]; // Set the main image to the first image of the selected color
+  }
+
+  // Change the main image when a thumbnail is clicked
+  changeMainImage(image: string): void {
+    this.mainImage = image; // Update the main image with the clicked thumbnail image
   }
 
   // Calculate filled stars
@@ -83,6 +90,7 @@ export class ProductDetailsComponent {
   getStarsArray(): number[] {
     return Array(5).fill(0);
   }
+
   CheckIsfav(): boolean {
     if (this.count in this.FavList) {
       return true;
@@ -95,6 +103,7 @@ export class ProductDetailsComponent {
     this.cartService.addToCart(this.currentProduct);
     alert(`${this.currentProduct.title} has been added to your cart!`);
   }
+
   // Check if the product is in favorites
   isFavorite(): boolean {
     return this.isFav;
