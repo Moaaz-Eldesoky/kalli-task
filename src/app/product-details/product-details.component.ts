@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../interfaces/product.interface';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -19,6 +18,7 @@ export class ProductDetailsComponent {
   selectedImages: string[] = []; // Images of the selected color
   FavList: any = [];
   count: any;
+  isFav: boolean = false; // Track if the product is in favorites
 
   constructor(private cartService: CartService) {}
 
@@ -90,18 +90,18 @@ export class ProductDetailsComponent {
     return false;
   }
 
-  addToFav() {
-    console.log(this.FavList);
-    if (this.CheckIsfav()) {
-      const index = this.FavList.indexOf(this.count);
-      this.FavList.splice(index);
-    } else {
-      this.FavList.push(this.count);
-    }
-  }
   addToCart() {
     console.log(this.currentProduct);
     this.cartService.addToCart(this.currentProduct);
     alert(`${this.currentProduct.title} has been added to your cart!`);
+  }
+  // Check if the product is in favorites
+  isFavorite(): boolean {
+    return this.isFav;
+  }
+
+  // Toggle the favorite status of the product
+  toggleFavorite(): void {
+    this.isFav = !this.isFav; // Toggle the favorite status
   }
 }

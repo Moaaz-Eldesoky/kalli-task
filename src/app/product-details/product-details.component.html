@@ -131,7 +131,7 @@
             <button (click)="addToCart()" type="button" class="btn text-white bg-black btn-lg fs-6 py-2 px-4 mx-2">ADD
               TO
               CART</button>
-            <i [ngClass]="CheckIsfav()?'fa-solid':'fa-regular'" (click)="addToFav()" class="fa-heart"></i>
+            <i [ngClass]="isFavorite() ? 'fa-solid' : 'fa-regular'" (click)="toggleFavorite()" class="fa-heart"></i>
           </div>
         </div>
       </div>
