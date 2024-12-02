@@ -20,6 +20,7 @@ export class ProductDetailsComponent {
   count: any;
   isFav: boolean = false; // Track if the product is in favorites
   mainImage!: string; // Track the selected main image
+  animateImage: boolean = false;
 
   constructor(private cartService: CartService) {}
 
@@ -33,12 +34,19 @@ export class ProductDetailsComponent {
     this.selectedSize = this.currentProduct.size[0]; // Default size
     this.selectColor(this.currentProduct.colors[0].hex); // Default color
   }
+  triggerAnimation(): void {
+    this.animateImage = true;
+    setTimeout(() => {
+      this.animateImage = false;
+    }, 1000); // Match the duration of the animation
+  }
 
   // Navigate to the next product
   nextProduct(): void {
     this.currentProductIndex =
       (this.currentProductIndex + 1) % this.products.length;
     this.updateProduct();
+    this.triggerAnimation();
   }
 
   // Navigate to the previous product
@@ -47,6 +55,7 @@ export class ProductDetailsComponent {
       (this.currentProductIndex - 1 + this.products.length) %
       this.products.length;
     this.updateProduct();
+    this.triggerAnimation();
   }
 
   // Navigate to a specific product
@@ -54,6 +63,7 @@ export class ProductDetailsComponent {
     event?.preventDefault(); // Prevent default behavior
     this.currentProductIndex = index;
     this.updateProduct();
+    this.triggerAnimation();
   }
 
   // Select a size
@@ -74,6 +84,7 @@ export class ProductDetailsComponent {
   // Change the main image when a thumbnail is clicked
   changeMainImage(image: string): void {
     this.mainImage = image; // Update the main image with the clicked thumbnail image
+    this.triggerAnimation();
   }
 
   // Calculate filled stars

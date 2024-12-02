@@ -33,7 +33,7 @@
 
               <!-- Selected Color's First Image -->
               <div class="col-lg-6" id="Touch">
-                <div class="main-image">
+                <div class="main-image" [ngClass]="{'animate__animated animate__tada': animateImage}">
                   <img class="w-100" [src]="'../../assets/' + mainImage" alt="Selected Color">
                 </div>
               </div>
