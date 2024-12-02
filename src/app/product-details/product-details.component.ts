@@ -44,6 +44,7 @@ export class ProductDetailsComponent {
 
   // Navigate to the next product
   nextProduct(): void {
+    console.log('Swiped Left or Next Product');
     this.currentProductIndex =
       (this.currentProductIndex + 1) % this.products.length;
     this.updateProduct();
@@ -52,6 +53,8 @@ export class ProductDetailsComponent {
 
   // Navigate to the previous product
   previousProduct(): void {
+    console.log('Swiped right or Next prev product');
+
     this.currentProductIndex =
       (this.currentProductIndex - 1 + this.products.length) %
       this.products.length;

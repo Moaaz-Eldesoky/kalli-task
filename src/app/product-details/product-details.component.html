@@ -22,10 +22,12 @@
                 </div>
               </div>
 
-              <!-- Selected Color's First Image -->
-              <div class="col-lg-6" id="Touch">
-                <div class="main-image" [ngClass]="{'animate__animated animate__tada': animateImage}">
-                  <img class="w-100" [src]="'../../assets/' + mainImage" alt="Selected Color">
+              <!-- Selected Color's First Image {Main Imgage} -->
+              <div class="col-lg-6" id="Touch" (swipeleft)="nextProduct()" (swiperight)="previousProduct()">
+                <div class="main-img-carousel">
+                  <div class="main-image" [ngClass]="{'animate__animated animate__tada': animateImage}">
+                    <img class="w-100" [src]="'../../assets/' + mainImage" alt="Selected Color">
+                  </div>
                 </div>
               </div>
 
