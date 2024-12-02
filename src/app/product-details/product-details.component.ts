@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Product } from '../interfaces/product.interface';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../services/cart.service';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-product-details',
@@ -23,10 +24,14 @@ export class ProductDetailsComponent {
   animateImage: boolean = false;
   sizeList: number[] = [37, 38, 39, 40, 41];
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private favoritesService: FavoritesService
+  ) {}
 
   ngOnInit(): void {
     this.updateProduct();
+    this.loadFavorites();
   }
 
   // Updates the current product and selected color
@@ -120,6 +125,11 @@ export class ProductDetailsComponent {
     alert(`${this.currentProduct.title} has been added to your cart!`);
   }
 
+  // Load the favorite status of the current product
+  loadFavorites(): void {
+    this.isFav = this.favoritesService.isFavorite(this.currentProduct);
+  }
+
   // Check if the product is in favorites
   isFavorite(): boolean {
     return this.isFav;
@@ -128,5 +138,6 @@ export class ProductDetailsComponent {
   // Toggle the favorite status of the product
   toggleFavorite(): void {
     this.isFav = !this.isFav; // Toggle the favorite status
+    this.favoritesService.toggleFavorite(this.currentProduct); // Use the service to toggle and update favorites
   }
 }
