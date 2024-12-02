@@ -79,6 +79,7 @@ export class ProductDetailsComponent {
     );
     this.selectedImages = colorObject?.images || [];
     this.mainImage = this.selectedImages[0]; // Set the main image to the first image of the selected color
+    this.triggerAnimation();
   }
 
   // Change the main image when a thumbnail is clicked
