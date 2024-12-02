@@ -109,6 +109,10 @@
   font-weight: bold;
 }
 
+/* .size button {
+  border: 4px solid #000;
+} */
+
 .reviews p,
 .price p {
   font-size: 1rem;

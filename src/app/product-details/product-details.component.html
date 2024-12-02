@@ -35,8 +35,8 @@
                 <div class="size">
                   <p>SIZE</p>
                   <div class="d-flex">
-                    <div *ngFor="let size of product.size">
-                      <button type="button" style="width: 50px; height: 50px;"
+                    <div *ngFor="let size of sizeList">
+                      <button type="button" style="width: 50px; height: 50px;" [disabled]="!product.size.includes(size)"
                         class="border border-2 btn text-center rounded-circle m-1"
                         [ngClass]="{'bg-dark text-white': selectedSize === size}" (click)="selectSize(size)">
                         {{size}}

@@ -21,6 +21,7 @@ export class ProductDetailsComponent {
   isFav: boolean = false; // Track if the product is in favorites
   mainImage!: string; // Track the selected main image
   animateImage: boolean = false;
+  sizeList: number[] = [37, 38, 39, 40, 41];
 
   constructor(private cartService: CartService) {}
 
