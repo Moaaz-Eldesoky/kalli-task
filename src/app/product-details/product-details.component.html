@@ -16,7 +16,7 @@
                 <!-- thumbnails -->
                 <div class="d-flex gap-2">
                   <div *ngFor="let image of selectedImages; let imgIndex = index" class="position-relative">
-                    <img class="w-100 border border-1 m-3" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}"
+                    <img class="w-100 border border-1" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}"
                       [ngClass]="{'border-dark': selectedThumbnail === image}" (click)="changeMainImage(image)">
                   </div>
                 </div>
@@ -82,28 +82,10 @@
             </div>
           </div>
         </div>
-        <!-- Carousel controls -->
-        <div class="carousel-controls">
-          <button class="carousel-control-prev" type="button" (click)="previousProduct()">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" (click)="nextProduct()">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-        <!-- Carousel indicators -->
-        <div class="carousel-indicators">
-          <button *ngFor="let product of products; let i = index" type="button"
-            [attr.data-bs-target]="'#productCarousel'" [attr.data-bs-slide-to]="i"
-            [class.active]="i === currentProductIndex" [attr.aria-current]="i === currentProductIndex ? 'true' : null"
-            [attr.aria-label]="'Slide ' + (i + 1)" (click)="goToProduct(i, $event)">
-          </button>
-        </div>
-        <!-- play video -->
+        <!-- footer -->
         <div class="row">
-          <div class="col-lg-8 justify-content-center">
+          <!-- play video -->
+          <div class="col-lg-3 justify-content-center">
             <button type="button" class="btn d-flex align-items-center" data-bs-toggle="modal"
               data-bs-target="#staticBackdrop">
               <i class="fa-solid fa-circle-play mx-2"></i>
@@ -124,13 +106,35 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 right-side">
-            <button (click)="addToCart()" type="button" class="btn text-white bg-black btn-lg fs-6 py-2 px-4 mx-2">ADD
+          <!-- Carousel controls -->
+          <div class="col-lg-6">
+            <div class="carousel-indicators">
+              <div class="carousel-controls">
+                <button class="carousel-control-prev" type="button" (click)="previousProduct()">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" (click)="nextProduct()">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              <button *ngFor="let product of products; let i = index" type="button"
+                [attr.data-bs-target]="'#productCarousel'" [attr.data-bs-slide-to]="i"
+                [class.active]="i === currentProductIndex"
+                [attr.aria-current]="i === currentProductIndex ? 'true' : null" [attr.aria-label]="'Slide ' + (i + 1)"
+                (click)="goToProduct(i, $event)">
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-3 right-side">
+            <button (click)="addToCart()" type="button" class="btn text-white bg-black btn-lg fs-6 ">ADD
               TO
               CART</button>
             <i [ngClass]="isFavorite(currentProduct) ? 'fa-solid' : 'fa-regular'"
               (click)="toggleFavorite(currentProduct)" class="fa-heart"></i>
           </div>
+
         </div>
       </div>
     </div>

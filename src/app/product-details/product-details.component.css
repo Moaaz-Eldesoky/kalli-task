@@ -1,6 +1,5 @@
 .main {
   background-color: #f5f5f5;
-  position: relative;
   padding: 20px;
 }
 
@@ -20,20 +19,23 @@
 
 }
 
+
+.carousel-indicators {
+  position: relative;
+}
+
 .carousel-controls button {
-  /* display: inline-block; */
   position: absolute;
-  top: 94%;
   padding: 10px 10px;
+  top: -13px;
   cursor: pointer;
   height: 50px;
-  /* display: flex;
-  justify-content: space-between; */
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(1) brightness(0) saturate(100%) !important;
+
 }
 
 .carousel-indicators [data-bs-target] {
@@ -42,26 +44,17 @@
 }
 
 .carousel-indicators {
-  bottom: 25px;
-  margin-left: 45%;
-  margin-bottom: -2%;
-  /* border: 1px solid; */
-  width: 100px;
-  bottom: 25px;
+  z-index: 1;
 }
 
-.carousel-item {
-  transition: none !important;
+.carousel-control-prev {
+  margin-left: 30%;
+  z-index: 2;
 }
 
-/* new changes */
-
-.carousel-controls {
-  bottom: 70px;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: space-between;
-  z-index: 5;
+.carousel-control-next {
+  margin-right: 30%;
+  z-index: 2;
 }
 
 
@@ -71,12 +64,8 @@
   width: 40px;
 }
 
-.carousel-control-prev {
-  margin-left: 41%;
-}
-
-.carousel-control-next {
-  margin-right: 43%;
+.carousel-item {
+  transition: none !important;
 }
 
 /* rateing */
@@ -109,9 +98,6 @@
   font-weight: bold;
 }
 
-/* .size button {
-  border: 4px solid #000;
-} */
 
 .reviews p,
 .price p {
@@ -125,77 +111,27 @@
   font-size: 20px;
 }
 
-/* animation */
-/* Add this to your existing CSS file */
 
-@keyframes jumpAnimation {
-  0% {
-    transform: translateY(0);
-  }
-
-  30% {
-    transform: translateY(-10px);
-  }
-
-  50% {
-    transform: translateY(5px);
-  }
-
-  70% {
-    transform: translateY(-5px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
 
 .carousel-item {
   animation: none;
-  /* Default no animation */
 }
 
 .carousel-item.animate {
   animation: jumpAnimation 0.5s ease-out;
 }
 
-.carousel-controls {
-  bottom: 70px;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: space-between;
-  z-index: 5;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  cursor: pointer;
-  width: 40px;
-}
-
-.carousel-control-prev {
-  margin-left: 41%;
-}
-
-.carousel-control-next {
-  margin-right: 43%;
-}
 
 .main-image {
   width: 75%;
   margin-left: 13%;
-  /* height: 80%; */
 }
 
 
-
-/* try */
 .product-slider {
   width: 100%;
   overflow: hidden;
-  position: relative;
   touch-action: pan-y;
-  /* Prevent vertical scrolling issues */
 }
 
 .main-image-carousel {
@@ -212,7 +148,30 @@
 
 .image-selected {
   border: 3px solid #000;
-  /* Dark border when selected */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  /* Shadow effect when selected */
+}
+
+/* media query */
+@media (max-width: 1400px) {
+  .carousel-indicators [data-bs-target] {
+    width: 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .carousel-indicators [data-bs-target] {
+    width: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .carousel-indicators [data-bs-target] {
+    width: 20px;
+  }
+}
+
+@media (max-width: 530px) {
+  .carousel-indicators [data-bs-target] {
+    width: 10px;
+  }
 }

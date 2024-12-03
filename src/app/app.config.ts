@@ -18,8 +18,8 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideToastr({
       // Provide Toastr with default configuration
-      timeOut: 3000,
-      positionClass: 'toast-top-right',
+      timeOut: 500,
+      positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),
   ],
