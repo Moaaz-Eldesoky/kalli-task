@@ -6,6 +6,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { MyHammerConfig } from './hammer.config';
 import 'hammerjs';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +15,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
+    provideAnimations(),
+    provideToastr({
+      // Provide Toastr with default configuration
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
 };

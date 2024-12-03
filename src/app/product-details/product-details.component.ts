@@ -3,6 +3,7 @@ import { Product } from '../interfaces/product.interface';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { FavoritesService } from '../services/favorites.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
@@ -26,7 +27,8 @@ export class ProductDetailsComponent {
 
   constructor(
     private cartService: CartService,
-    private favoritesService: FavoritesService
+    private favoritesService: FavoritesService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -87,6 +89,7 @@ export class ProductDetailsComponent {
       (color) => color.hex === colorHex
     );
     this.selectedImages = colorObject?.images || [];
+    console.log(this.selectedImages);
     this.mainImage = this.selectedImages[0]; // Set the main image to the first image of the selected color
     this.triggerAnimation();
   }
@@ -94,6 +97,7 @@ export class ProductDetailsComponent {
   // Change the main image when a thumbnail is clicked
   changeMainImage(image: string): void {
     this.mainImage = image; // Update the main image with the clicked thumbnail image
+    console.log(image);
     this.triggerAnimation();
   }
 
@@ -122,7 +126,9 @@ export class ProductDetailsComponent {
   addToCart() {
     console.log(this.currentProduct);
     this.cartService.addToCart(this.currentProduct);
-    alert(`${this.currentProduct.title} has been added to your cart!`);
+    this.toastr.success(
+      `${this.currentProduct.title} has been added to your cart!`
+    );
   }
 
   // Load the favorite status of the current product

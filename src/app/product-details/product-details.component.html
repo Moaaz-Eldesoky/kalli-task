@@ -16,7 +16,7 @@
                 <!-- thumbnails -->
                 <div class="d-flex">
                   <div *ngFor="let image of selectedImages; let imgIndex = index" class="position-relative">
-                    <img class="w-100" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}"
+                    <img class="w-100 border border-1 m-3" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}"
                       (click)="changeMainImage(image)">
                   </div>
                 </div>

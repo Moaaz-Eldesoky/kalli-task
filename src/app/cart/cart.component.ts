@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +12,10 @@ import { CartService } from '../services/cart.service';
 export class CartComponent implements OnInit {
   items: any[] = [];
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.items = this.cartService.getItems();
@@ -19,7 +23,7 @@ export class CartComponent implements OnInit {
 
   clearCart() {
     this.items = this.cartService.clearCart();
-    alert('Cart has been cleared!');
+    this.toastr.success('Cart has been cleared!');
   }
 
   removeItem(item: any): void {
