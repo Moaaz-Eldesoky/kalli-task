@@ -18,6 +18,7 @@ export class ProductDetailsComponent {
   selectedSize!: number;
   selectedColor!: string;
   selectedImages: string[] = []; // Images of the selected color
+  selectedThumbnail!: string;
   FavList: any = [];
   count: any;
   isFav: boolean = false; // Track if the product is in favorites
@@ -97,8 +98,10 @@ export class ProductDetailsComponent {
   // Change the main image when a thumbnail is clicked
   changeMainImage(image: string): void {
     this.mainImage = image; // Update the main image with the clicked thumbnail image
+    this.selectedThumbnail = image;
     console.log(image);
     this.triggerAnimation();
+    console.log('selectedThumbnail:' + this.selectedThumbnail);
   }
 
   // Calculate filled stars

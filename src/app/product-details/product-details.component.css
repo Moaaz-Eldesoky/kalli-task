@@ -209,3 +209,10 @@
   height: auto;
   cursor: pointer;
 }
+
+.image-selected {
+  border: 3px solid #000;
+  /* Dark border when selected */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  /* Shadow effect when selected */
+}

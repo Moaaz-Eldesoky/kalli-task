@@ -14,10 +14,10 @@
                 <h4>{{product.title}}</h4>
                 <p class="py-4">{{product.description}}</p>
                 <!-- thumbnails -->
-                <div class="d-flex">
+                <div class="d-flex gap-2">
                   <div *ngFor="let image of selectedImages; let imgIndex = index" class="position-relative">
                     <img class="w-100 border border-1 m-3" src='{{"../../assets/"+ image}}' alt="Image {{imgIndex + 1}}"
-                      (click)="changeMainImage(image)">
+                      [ngClass]="{'border-dark': selectedThumbnail === image}" (click)="changeMainImage(image)">
                   </div>
                 </div>
               </div>
