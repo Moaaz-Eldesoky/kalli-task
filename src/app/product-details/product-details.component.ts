@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../services/cart.service';
 import { FavoritesService } from '../services/favorites.service';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-details',
@@ -19,22 +20,23 @@ export class ProductDetailsComponent {
   selectedColor!: string;
   selectedImages: string[] = []; // Images of the selected color
   selectedThumbnail!: string;
-  FavList: any = [];
-  count: any;
   isFav: boolean = false; // Track if the product is in favorites
   mainImage!: string; // Track the selected main image
   animateImage: boolean = false;
   sizeList: number[] = [37, 38, 39, 40, 41];
+  safeVideoUrl!: SafeResourceUrl;
 
   constructor(
     private cartService: CartService,
     private favoritesService: FavoritesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     this.updateProduct();
     this.loadFavorites();
+    this.updateVideoUrl();
   }
 
   // Updates the current product and selected color
@@ -42,7 +44,9 @@ export class ProductDetailsComponent {
     this.currentProduct = this.products[this.currentProductIndex];
     this.selectedSize = this.currentProduct.size[0]; // Default size
     this.selectColor(this.currentProduct.colors[0].hex); // Default color
+    this.updateVideoUrl();
   }
+
   triggerAnimation(): void {
     this.animateImage = true;
     setTimeout(() => {
@@ -52,7 +56,6 @@ export class ProductDetailsComponent {
 
   // Navigate to the next product
   nextProduct(): void {
-    console.log('Swiped Left or Next Product');
     this.currentProductIndex =
       (this.currentProductIndex + 1) % this.products.length;
     this.updateProduct();
@@ -61,8 +64,6 @@ export class ProductDetailsComponent {
 
   // Navigate to the previous product
   previousProduct(): void {
-    console.log('Swiped right or Next prev product');
-
     this.currentProductIndex =
       (this.currentProductIndex - 1 + this.products.length) %
       this.products.length;
@@ -90,7 +91,6 @@ export class ProductDetailsComponent {
       (color) => color.hex === colorHex
     );
     this.selectedImages = colorObject?.images || [];
-    console.log(this.selectedImages);
     this.mainImage = this.selectedImages[0]; // Set the main image to the first image of the selected color
     this.triggerAnimation();
   }
@@ -99,9 +99,7 @@ export class ProductDetailsComponent {
   changeMainImage(image: string): void {
     this.mainImage = image; // Update the main image with the clicked thumbnail image
     this.selectedThumbnail = image;
-    console.log(image);
     this.triggerAnimation();
-    console.log('selectedThumbnail:' + this.selectedThumbnail);
   }
 
   // Calculate filled stars
@@ -118,16 +116,13 @@ export class ProductDetailsComponent {
   getStarsArray(): number[] {
     return Array(5).fill(0);
   }
-
-  CheckIsfav(): boolean {
-    if (this.count in this.FavList) {
-      return true;
-    }
-    return false;
+  updateVideoUrl(): void {
+    this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.currentProduct.video
+    );
   }
 
   addToCart() {
-    console.log(this.currentProduct);
     this.cartService.addToCart(this.currentProduct);
     this.toastr.success(
       `${this.currentProduct.title} has been added to your cart!`
@@ -140,13 +135,13 @@ export class ProductDetailsComponent {
   }
 
   // Check if the product is in favorites
-  isFavorite(): boolean {
+  isFavorite(product: Product): boolean {
     return this.isFav;
   }
 
   // Toggle the favorite status of the product
-  toggleFavorite(): void {
-    this.isFav = !this.isFav; // Toggle the favorite status
-    this.favoritesService.toggleFavorite(this.currentProduct); // Use the service to toggle and update favorites
+  toggleFavorite(product: Product): void {
+    this.favoritesService.toggleFavorite(this.currentProduct);
+    this.loadFavorites(); // Refresh the local status to reflect changes
   }
 }

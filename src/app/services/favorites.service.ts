@@ -40,4 +40,10 @@ export class FavoritesService {
       this.saveFavorites(favorites);
     }
   }
+
+  // Load the updated favorite status of a product
+  updateFavorites(): void {
+    const favorites = this.getFavorites();
+    this.saveFavorites(favorites);
+  }
 }

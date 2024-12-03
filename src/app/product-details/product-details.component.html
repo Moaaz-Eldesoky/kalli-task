@@ -36,10 +36,10 @@
                 <!-- Size -->
                 <div class="size">
                   <p>SIZE</p>
-                  <div class="d-flex">
+                  <div class="d-flex gap-1">
                     <div *ngFor="let size of sizeList">
-                      <button type="button" style="width: 50px; height: 50px;" [disabled]="!product.size.includes(size)"
-                        class="border border-2 btn text-center rounded-circle m-1"
+                      <button type="button" style="width: 40px; height: 40px;" [disabled]="!product.size.includes(size)"
+                        class="border border-2 btn text-center rounded-circle "
                         [ngClass]="{'bg-dark text-white': selectedSize === size}" (click)="selectSize(size)">
                         {{size}}
                       </button>
@@ -102,6 +102,7 @@
           </button>
         </div>
         <!-- play video -->
+        <h1>{{currentProduct.video}}</h1>
         <div class="row">
           <div class="col-lg-8 justify-content-center">
             <button type="button" class="btn d-flex align-items-center" data-bs-toggle="modal"
@@ -117,8 +118,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <iframe height="315" class="w-100" src="https://www.youtube.com/embed/IA6fQdNKPEY"
-                      title="YouTube video player" frameborder="0"
+                    <iframe height="315" class="w-100" [src]="safeVideoUrl" title="YouTube video player" frameborder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
                   </div>
                 </div>
@@ -129,7 +129,8 @@
             <button (click)="addToCart()" type="button" class="btn text-white bg-black btn-lg fs-6 py-2 px-4 mx-2">ADD
               TO
               CART</button>
-            <i [ngClass]="isFavorite() ? 'fa-solid' : 'fa-regular'" (click)="toggleFavorite()" class="fa-heart"></i>
+            <i [ngClass]="isFavorite(currentProduct) ? 'fa-solid' : 'fa-regular'"
+              (click)="toggleFavorite(currentProduct)" class="fa-heart"></i>
           </div>
         </div>
       </div>
