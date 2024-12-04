@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { cartItems } from '../interfaces/cart-items.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,34 +14,43 @@ export class CartService {
     this.loadCart();
   }
 
-  private items: any[] = [];
+  private cartItems: cartItems[] = [];
 
-  addToCart(product: any) {
-    this.items.push(product); // Add product to cart
+  addToCart(item: cartItems) {
+    const existingItem = this.cartItems.find((i) => i.id === item.id);
+    if (existingItem) {
+      existingItem.quantity = (existingItem.quantity || 0) + 1;
+    } else {
+      // Otherwise, add the new item to the cart
+      this.cartItems.push({
+        ...item,
+        quantity: 1,
+      });
+    }
     this.saveCart(); // Save cart to local storage
-    this.cartItemsSubject.next(this.items); // Emit updated cart
+    this.cartItemsSubject.next(this.cartItems); // Emit updated cart
   }
 
   getItems() {
-    return this.items; // Get current cart items
+    return this.cartItems; // Get current cart items
   }
 
   clearCart() {
-    this.items = []; // Clear the cart items
+    this.cartItems = []; // Clear the cart items
     this.saveCart(); // Save empty cart to local storage
-    this.cartItemsSubject.next(this.items); // Emit empty cart
-    return this.items;
+    this.cartItemsSubject.next(this.cartItems); // Emit empty cart
+    return this.cartItems;
   }
 
   private saveCart() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.items)); // Save to local storage
+    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems)); // Save to local storage
   }
 
   private loadCart() {
     const storedItems = localStorage.getItem(this.localStorageKey); // Get cart from local storage
     if (storedItems) {
-      this.items = JSON.parse(storedItems); // Parse and load the cart items
-      this.cartItemsSubject.next(this.items); // Emit cart items after loading
+      this.cartItems = JSON.parse(storedItems); // Parse and load the cart items
+      this.cartItemsSubject.next(this.cartItems); // Emit cart items after loading
     }
   }
 

@@ -124,7 +124,11 @@ export class ProductDetailsComponent {
   }
 
   addToCart() {
-    this.cartService.addToCart(this.currentProduct);
+    this.cartService.addToCart({
+      id: this.currentProduct.id,
+      size: this.selectedSize,
+      color: this.selectedColor,
+    });
     this.toastr.success(
       `${this.currentProduct.title} has been added to your cart!`
     );
