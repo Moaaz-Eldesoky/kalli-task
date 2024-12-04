@@ -41,6 +41,12 @@ export class CartService {
     this.cartItemsSubject.next(this.cartItems); // Emit empty cart
     return this.cartItems;
   }
+  removeFromCart(itemId: number): void {
+    // Filter out the item by ID
+    this.cartItems = this.cartItems.filter((item) => item.id !== itemId);
+    this.saveCart(); // Save the updated cart to local storage
+    this.cartItemsSubject.next(this.cartItems); // Emit updated cart
+  }
 
   private saveCart() {
     localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems)); // Save to local storage

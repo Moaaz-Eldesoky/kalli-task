@@ -4,9 +4,10 @@
   <!-- If cart has items -->
   <div *ngIf="cartProducts.length; else emptyCart">
     <div class="table-responsive">
-      <table class="table table-striped">
+      <table class="table ">
         <thead class="thead-dark">
           <tr>
+            <th scope="col">Image</th>
             <th scope="col">Product</th>
             <th scope="col">Description</th>
             <th scope="col">Price</th>
@@ -16,7 +17,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of cartProducts">
+          <tr *ngFor="let item of cartProducts" class="align-middle">
+            <td>
+              <img [src]="getProductImage(item.productDetails.colors, item.color)" alt="Product Image"
+                style="width: 80px; height: 80px;" />
+            </td>
             <td>{{ item.productDetails?.title }}</td>
             <td>{{ item.productDetails?.description }}</td>
             <td>{{ item.productDetails?.price | currency }}</td>

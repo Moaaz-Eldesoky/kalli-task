@@ -44,6 +44,19 @@ export class CartComponent implements OnInit {
     });
     this.getTotalPrice();
   }
+
+  getProductImage(colors: any[], selectedColor: string): string {
+    const basePath = 'assets/'; // Base path for images
+    // Find the selected color object
+    const selectedColorObj = colors.find((color) => color.hex == selectedColor);
+    if (selectedColorObj) {
+      const imagePath = selectedColorObj.images[0];
+      return imagePath ? basePath + imagePath : 'assets/default-image.png'; // Default image if no specific image exists
+    }
+
+    return 'assets/default-image.png'; // Return default image if no color matches
+  }
+
   clearCart() {
     this.items = this.cartService.clearCart();
     this.cartProducts = [];
@@ -52,20 +65,28 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(item: any): void {
-    const index = this.items.indexOf(item);
-    if (index > -1) {
-      this.items.splice(index, 1);
-    }
+    // Use the service to remove the item by its ID
+    this.cartService.removeFromCart(item.id);
+
+    // Refresh cartProducts after the item is removed
+    this.cartProducts = this.cartService.getItems().map((cartItem) => {
+      const product = this.allProducts.find((p) => p.id == cartItem.id);
+      return product ? { ...cartItem, productDetails: product } : cartItem;
+    });
+
+    // Update the total price
     this.getTotalPrice();
+
+    // Notify the user
+    this.toastr.info('Item removed from the cart!');
   }
 
   getTotalPrice(): void {
     this.total = this.cartProducts.reduce(
       (acc, item) =>
-        acc + parseFloat(item.productDetails.price) * item.quantity, // Multiply price by quantity
+        acc + parseFloat(item.productDetails.price) * item.quantity,
       0
     );
-    console.log('Total price with quantity:', this.total); // For debugging purposes
   }
   pay() {
     console.log('allllllllll>>' + JSON.stringify(this.allProducts));
