@@ -45,6 +45,7 @@ export class ProductDetailsComponent {
     this.selectedSize = this.currentProduct.size[0]; // Default size
     this.selectColor(this.currentProduct.colors[0].hex); // Default color
     this.updateVideoUrl();
+    this.loadFavorites();
   }
 
   triggerAnimation(): void {
